@@ -11,10 +11,10 @@ AFRAME.registerState({
       state.score += action.points;
     },
     decreaseLife: function (state, action) {
-      state.lives--;
+      state.life--;
     },
     increaseLife: function (state, action) {
-      state.lives++;
+      state.life++;
     }
   },
 });

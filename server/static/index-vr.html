@@ -6,9 +6,14 @@
   <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
   <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+  <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
   <script src="js/aframe-state-component.js"></script>
   <script src="/js/spawn-in-circle.component.js"></script>
   <script src="/js/game-state.js"></script>
+  <script src="./js/projectile.js"></script>
+  <script src="./js/shooter.js"></script>
+  <script src="./js/target.js"></script>
   <link rel="import" href="templates.html">
 </head>
 
@@ -19,20 +24,29 @@
       room: dev;
       debug: true;
       adapter: wseasyrtc;
-    ">
+     "
+    physics="gravity: 0">
     <a-assets>
       <img id="grid" src="https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
       <img id="sky" src="http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+      <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05" 
+               collision-filter="group: projectiles; collidesWith: players, default">
+      </a-mixin>
     </a-assets>
 
-    <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera="userHeight: 1.6" spawn-in-circle="radius:3"
-      wasd-controls look-controls>
+    <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera spawn-in-circle="radius:3"
+      position="0 1.6 0"
+      wasd-controls look-controls
+      shooter target
+      static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
+      collision-filter="group: players; collidesWith: projectiles; collisionForces: false">
       <a-sphere class="head" visible="false" random-color></a-sphere>
     </a-entity>
 
-    <a-entity text="side: double; width: 10; wrapCount: 20;" position="3.2 3 -5.14" bind__text="value: score;"></a-entity>
+    <a-entity text="side: double; width: 10; wrapCount: 20;" position="3.2 3 -5.14" bind__text="value: life;"></a-entity>
 
-    <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+    <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"
+      static-body collision-filter="collidesWith: projectiles"></a-entity>
 
     <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
     <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>

@@ -14,6 +14,7 @@
   <script src="./js/projectile.js"></script>
   <script src="./js/shooter.js"></script>
   <script src="./js/target.js"></script>
+  <script src="./js/oculus-go-controls.js"></script>
   <link rel="import" href="templates.html">
 </head>
 
@@ -32,6 +33,7 @@
       <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05" 
                collision-filter="group: projectiles; collidesWith: players, default">
       </a-mixin>
+      <a-mixin id="controller-mixin" shooter></a-mixin>
     </a-assets>
 
     <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera spawn-in-circle="radius:3"
@@ -41,6 +43,15 @@
       static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
       collision-filter="group: players; collidesWith: projectiles; collisionForces: false">
       <a-sphere class="head" visible="false" random-color></a-sphere>
+      <a-entity class="right-controller" mixin="controller-mixin"
+       daydream-controls="hand: right" gearvr-controls="hand: right"
+       oculus-touch-controls="hand: right" vive-controls="hand: right"
+       windows-motion-controls="hand: right" oculus-go-controls="hand: right">
+      </a-entity>
+      <a-entity class="left-controller" mixin="controller-mixin"
+       oculus-touch-controls="hand: left" vive-controls="hand: left"
+       windows-motion-controls="hand: left">
+      </a-entity>
     </a-entity>
 
     <a-entity text="side: double; width: 10; wrapCount: 20;" position="3.2 3 -5.14" bind__text="value: life;"></a-entity>

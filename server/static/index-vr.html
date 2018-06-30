@@ -37,10 +37,11 @@
       <a-mixin id="controller-mixin" shooter></a-mixin>
     </a-assets>
 
-    <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera spawn-in-circle="radius:3"
+    <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;"
+      camera spawn-in-circle="radius:10"
       position="0 1.6 0"
       wasd-controls look-controls
-      shooter target
+      target
       static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
       collision-filter="group: players; collidesWith: projectiles; collisionForces: false">
       <a-sphere class="head" visible="false" random-color></a-sphere>

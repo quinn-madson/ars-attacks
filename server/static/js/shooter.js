@@ -4,8 +4,8 @@ window.AFRAME.registerComponent('shooter', {
   },
   init: function () {
     this.shoot = window.AFRAME.utils.throttle(this.shoot, 300, this)
-    // document.addEventListener('mousedown', this.shoot)
-    // document.addEventListener('touchstart', this.shoot)
+    document.addEventListener('mousedown', this.shoot)
+    document.addEventListener('touchstart', this.shoot)
     this.el.addEventListener('triggerdown', this.shoot)
     this.el.addEventListener('trackpaddown', this.shoot)
     this.el.addEventListener('controllerconnected', evt => {

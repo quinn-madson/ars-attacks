@@ -24,6 +24,15 @@
     
     THREE.ARUtils.getARDisplay().then(function (display) { 
       arDisplay = display;
+      if (!arDisplay) {
+        // Check if the low-level WebXR Viewer interfaces are there.
+        if (window.webkit && window.webkit.messageHandlers) { 
+          if (window.webkit.messageHandlers.watchAR) { 
+              // Mozilla WebXR Viewer detected.
+              arDisplay = true;
+           }
+        }  
+      }
       ready.arDetect = true;
       checkReady()
     })

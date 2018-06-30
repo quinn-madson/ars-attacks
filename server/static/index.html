@@ -30,10 +30,10 @@
 
     function checkReady() {
       if (ready.arDetect && ready.vrDetect) {
-        if (vrDisplay) {
-          window.location.href = 'index-vr.html'
-        } else if (arDisplay) {
+        if (arDisplay) {
           window.location.href = 'index-ar.html'
+        } else if (vrDisplay) {
+          window.location.href = 'index-vr.html'
         } else {
           window.location.href = 'index-desktop.html'
         }

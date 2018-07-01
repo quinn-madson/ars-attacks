@@ -45,12 +45,7 @@ function doImports () {
     template: '#ar-template',
     components: [
       { selector: '.avatar', component: 'rotation' },
-      { selector: '.avatar', component: 'position' },
-      {
-        selector: '.head',
-        component: 'material',
-        property: 'color'
-      }
+      { selector: '.avatar', component: 'position' }
     ]
   });
   NAF.schemas.add({

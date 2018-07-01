@@ -9,6 +9,7 @@
   <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
   <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
   <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+  <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
   <script src="js/aframe-state-component.js"></script>
   <script src="./js/three.ar.js"></script>
   <script src="./js/aframe-ar.js"></script>
@@ -51,7 +52,7 @@
   <script src="/easyrtc/easyrtc.js"></script>
   <div id="ui-2d">
     <span id="helpHumans" onclick="document.querySelector('#player').emit('help-humans')">Help Humans</span>
-    <span id="helpAliens" onclick="document.querySelector('#player').emit('help-Aliens')">Help Aliens</span>
+    <span id="helpAliens" onclick="document.querySelector('#player').emit('help-aliens')">Help Aliens</span>
   </div>
   <a-scene networked-scene="
       room: dev;
@@ -68,7 +69,7 @@
       networked="template:#desktop-template;attachTemplateToLocal:false;">
       <a-entity id="player" class="avatar" camera look-controls
         cursor="rayOrigin: mouse" raycaster="objects: #ground"
-        shield-power
+        shield-power smoke-power
         scale="1 1 1" position="0 0 0" rotation="0 0 0">
       </a-entity>
     </a-entity>

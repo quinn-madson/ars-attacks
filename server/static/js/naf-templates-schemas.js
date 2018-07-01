@@ -66,6 +66,14 @@ function doImports () {
       'position'
     ]
   })
+  NAF.schemas.add({
+    template: '#smoke-dome-template',
+    components: [
+      'position',
+      'scale',
+      { component: 'material', property: 'opacity' }
+    ]
+  })
   // a-assets loading is paused until templates are loaded
   document.getElementById('waitfortemplates')
     .dispatchEvent(new CustomEvent('load'))

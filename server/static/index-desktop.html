@@ -42,7 +42,9 @@
       margin-right: -1px;
       cursor: pointer;
     }
-
+    .a-canvas {
+      cursor: crosshair !important;
+    }
   </style>
   <link rel="import" href="templates.html">
 </head>
@@ -51,8 +53,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
   <script src="/easyrtc/easyrtc.js"></script>
   <div id="ui-2d">
-    <span id="helpHumans" onclick="document.querySelector('#player').emit('help-humans')">Help Humans</span>
-    <span id="helpAliens" onclick="document.querySelector('#player').emit('help-aliens')">Help Aliens</span>
+    <span id="helpHumans" onclick="document.querySelector('#player').emit('help-humans')">
+      Help Humans
+    </span>
+    <span id="helpAliens" onclick="document.querySelector('#player').emit('help-aliens')">
+      Help Aliens
+    </span>
   </div>
   <a-scene networked-scene="
       room: dev;
@@ -62,12 +68,12 @@
     physics="gravity: 0"
     environment="
       preset:yavapai; lightPosition: 0 1 0.8; groundColor: #ffecbe;
-      groundColor2: #ffa27a; horizonColor: #51b5df; skyColor: #091b39
+      groundColor2: #ffa27a; horizonColor: #51b5df; skyColor: #091b39;
       dressingColor: #ffecbe; playArea: 1.2"
     >
     <a-entity position="0 50 0" scale="5 5 5" rotation="-90 0 0"
       networked="template:#desktop-template;attachTemplateToLocal:false;">
-      <a-entity id="player" class="avatar" camera look-controls
+      <a-entity id="player" class="avatar" camera
         cursor="rayOrigin: mouse" raycaster="objects: #ground"
         shield-power smoke-power
         scale="1 1 1" position="0 0 0" rotation="0 0 0">

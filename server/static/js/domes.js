@@ -21,19 +21,22 @@ window.AFRAME.registerComponent('shield-power', {
   init: function () {
     this.active = false
     this.makeShield = this.makeShield.bind(this)
+    this.btn = document.getElementById('helpHumans')
     this.el.addEventListener('help-humans', () => {
+      if (this.el.getAttribute('power-cooldown').current > 0) {
+        return
+      }
       this.active = !this.active
+      this.btn.style.backgroundColor = this.active ? 'yellow' : 'transparent'
     })
     this.el.addEventListener('help-aliens', () => {
       this.active = false
+      this.btn.style.backgroundColor = 'transparent'
     })
     this.el.addEventListener('click', this.makeShield)
   },
   dependencies: ['power-cooldown'],
   makeShield: function (evt) {
-    if (this.el.getAttribute('power-cooldown').current > 0) {
-      return
-    }
     if (!this.active) {
       return
     }
@@ -44,6 +47,7 @@ window.AFRAME.registerComponent('shield-power', {
     dome.setAttribute('networked', {template: '#shield-dome-template'})
     this.el.components['power-cooldown'].reset()
     this.active = false
+    this.btn.style.backgroundColor = 'transparent'
     dome.timeout = window.setTimeout(() => {
       try {
         dome.parentEl.removeChild(dome)
@@ -58,19 +62,22 @@ window.AFRAME.registerComponent('smoke-power', {
   init: function () {
     this.active = false
     this.makeSmoke = this.makeSmoke.bind(this)
+    this.btn = document.getElementById('helpAliens')
     this.el.addEventListener('help-aliens', () => {
+      if (this.el.getAttribute('power-cooldown').current > 0) {
+        return
+      }
       this.active = !this.active
+      this.btn.style.backgroundColor = this.active ? 'yellow' : 'transparent'
     })
     this.el.addEventListener('help-humans', () => {
       this.active = false
+      this.btn.style.backgroundColor = 'transparent'
     })
     this.el.addEventListener('click', this.makeSmoke)
   },
   dependencies: ['power-cooldown'],
   makeSmoke: function (evt) {
-    if (this.el.getAttribute('power-cooldown').current > 0) {
-      return
-    }
     if (!this.active) {
       return
     }
@@ -84,6 +91,7 @@ window.AFRAME.registerComponent('smoke-power', {
     dome.setAttribute('networked', {template: '#smoke-dome-template'})
     this.el.components['power-cooldown'].reset()
     this.active = false
+    this.btn.style.backgroundColor = 'transparent'
     dome.timeout = window.setTimeout(() => {
       try {
         dome.parentEl.removeChild(dome)

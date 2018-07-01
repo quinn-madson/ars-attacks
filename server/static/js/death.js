@@ -7,6 +7,10 @@ window.AFRAME.registerComponent('death', {
       this.deathDome = document.createElement('a-entity')
       this.deathDome.setAttribute('networked', { template: '#dead-player-template' })
       this.el.appendChild(this.deathDome)
+      const youdie = document.createElement('a-image')
+      youdie.setAttribute('src', '#youdie-texture')
+      youdie.setAttribute('position', '0 0 -1')
+      this.deathDome.appendChild(youdie)
     } else {
       try {
         if (this.deathDome) {

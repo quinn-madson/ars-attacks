@@ -3,7 +3,8 @@ AFRAME.registerState({
     score: 0,
     life: 10,
     mode: 'lobby',
-    gunsEnabled: false
+    gunsEnabled: false,
+    dead: false
   },
   handlers: {
     decreaseScore: function (state, action) {
@@ -19,9 +20,10 @@ AFRAME.registerState({
       hitSource.setAttribute('type', 'audio/wav')
       hitSound.appendChild(hitSource)
       hitSound.play()
-      state.life -= action.power || 1;
+      state.life -= 1;
       if (state.life <= 0) {
         AFRAME.scenes[0].emit('endGame')
+        state.dead = true
       }
     },
     increaseLife: function (state, action) {

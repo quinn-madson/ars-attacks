@@ -23,6 +23,7 @@
   <script src="/js/html-imports.min.js"></script>
   <script src="/js/hud.component.js"></script>
   <script src="/js/lobby.component.js"></script>
+  <script src="/js/death.js"></script>
   <link rel="import" href="templates.html">
 </head>
 
@@ -103,13 +104,14 @@
     <a-entity gltf-model="#base" scale="5 5 5"></a-entity>
     <a-entity id="cameraRig" networked="template:#cameraRig-template; attachTemplateToLocal: false"
       position rotation
-      spawn-in-circle="radius:10">
+      spawn-in-circle="radius:7.5">
       <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;"
         camera
         position="0 1.6 0"
         wasd-controls look-controls
         target
         lobby
+        death bind__death="active: dead"
         bind__hud="currentLife: life"
         static-body="shape: sphere; sphereRadius: 0.33" physics-collider="ignoreSleep: true"
         collision-filter="group: you; collidesWith: projectiles, alienBullets, humanBullets; collisionForces: false">

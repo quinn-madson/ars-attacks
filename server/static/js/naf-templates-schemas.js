@@ -69,6 +69,12 @@ function doImports () {
       { component: 'material', property: 'opacity' }
     ]
   })
+  NAF.schemas.add({
+    template: '#dead-player-template',
+    components: [
+      { component: 'material', property: 'opacity' }
+    ]
+  })
   // a-assets loading is paused until templates are loaded
   document.getElementById('waitfortemplates')
     .dispatchEvent(new CustomEvent('load'))

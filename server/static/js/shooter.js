@@ -1,9 +1,11 @@
 window.AFRAME.registerComponent('shooter', {
   schema: {
-    team: {type: 'string', oneOf: ['human', 'alien']},
+    team: { type: 'string', oneOf: ['human', 'alien'] },
+    active: { default: false },
     direction: { type: 'vec3', default: { x: 0, y: 0, z: -1 } },
     enableTouch: { default: true },
-    enableMouse: { default: true }
+    enableMouse: { default: true },
+    otherFireEvent: { default: '' }
   },
   init: function () {
     this.shoot = window.AFRAME.utils.throttle(this.shoot, 300, this)
@@ -15,6 +17,9 @@ window.AFRAME.registerComponent('shooter', {
     }
     this.el.addEventListener('triggerdown', this.shoot)
     this.el.addEventListener('trackpaddown', this.shoot)
+    if (this.data.otherFireEvent.length) {
+      document.addEventListener(this.data.otherFireEvent, this.shoot)
+    }
     // this.el.addEventListener('controllerconnected', evt => {
     //   if (evt.detail.name === 'oculus-touch-controls') {
     //     this.el.setAttribute('shooter', { direction: { x: 0, y: -0.8, z: -1 } })
@@ -29,6 +34,9 @@ window.AFRAME.registerComponent('shooter', {
     const direction = new window.THREE.Vector3()
     const position = new window.THREE.Vector3()
     return function () {
+      if (!this.data.active) {
+        return
+      }
       const proj = document.createElement('a-entity')
       const rotation = this.el.getAttribute('rotation')
       direction.copy(this.data.direction)

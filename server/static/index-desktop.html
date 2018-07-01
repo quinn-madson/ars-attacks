@@ -75,7 +75,8 @@
       networked="template:#desktop-template;attachTemplateToLocal:false;">
       <a-entity id="player" class="avatar" camera
         cursor="rayOrigin: mouse" raycaster="objects: #ground"
-        shield-power smoke-power
+        shield-power bind__shield="shield-power.active: gunsEnabled"
+        smoke-power bind__smoke="smoke-power.active: gunsEnabled"
         scale="1 1 1" position="0 0 0" rotation="0 0 0">
       </a-entity>
     </a-entity>

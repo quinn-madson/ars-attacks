@@ -125,6 +125,7 @@
       <a-camera id="player" class="avatar"
         scale="1 1 1" position="0 0 0" rotation="0 0 0"
         target shooter="team: alien; enableTouch:false; enableMouse:false;"
+        bind="shooter.active: gunsEnabled"
         static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
         collision-filter="group: you; collidesWith: projectiles, alienBullets, humanBullets; collisionForces: false">
         <a-sphere class="head" visible="false" random-color></a-sphere>

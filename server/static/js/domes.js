@@ -18,12 +18,15 @@ window.AFRAME.registerComponent('power-cooldown', {
   }
 })
 window.AFRAME.registerComponent('shield-power', {
+  schema: {
+    active: { default: false }
+  },
   init: function () {
     this.active = false
     this.makeShield = this.makeShield.bind(this)
     this.btn = document.getElementById('helpHumans')
     this.el.addEventListener('help-humans', () => {
-      if (this.el.getAttribute('power-cooldown').current > 0) {
+      if (this.el.getAttribute('power-cooldown').current > 0 || !this.data.active) {
         return
       }
       this.active = !this.active
@@ -34,6 +37,12 @@ window.AFRAME.registerComponent('shield-power', {
       this.btn.style.backgroundColor = 'transparent'
     })
     this.el.addEventListener('click', this.makeShield)
+  },
+  update: function () {
+    if (!this.data.active) {
+      this.active = false
+      this.btn.style.backgroundColor = 'transparent'
+    }
   },
   dependencies: ['power-cooldown'],
   makeShield: function (evt) {
@@ -65,12 +74,15 @@ window.AFRAME.registerComponent('shield-power', {
   }
 })
 window.AFRAME.registerComponent('smoke-power', {
+  schema: {
+    active: { default: false }
+  },
   init: function () {
     this.active = false
     this.makeSmoke = this.makeSmoke.bind(this)
     this.btn = document.getElementById('helpAliens')
     this.el.addEventListener('help-aliens', () => {
-      if (this.el.getAttribute('power-cooldown').current > 0) {
+      if (this.el.getAttribute('power-cooldown').current > 0 || !this.data.active) {
         return
       }
       this.active = !this.active

@@ -108,6 +108,7 @@
         <a-sphere class="head" visible="false" random-color></a-sphere>
       </a-entity>
       <a-entity class="right-controller" shooter="team: human; enableMouse: false; enableTouch: false"
+        bind="shooter.active: gunsEnabled"
         position rotation
         networked="template:#right-hand-template; attachTemplateToLocal: true"
         daydream-controls="hand: right; model: false"

@@ -48,6 +48,12 @@ window.AFRAME.registerComponent('shield-power', {
     this.el.components['power-cooldown'].reset()
     this.active = false
     this.btn.style.backgroundColor = 'transparent'
+    this.btn.parentElement.style.transition = ''
+    this.btn.parentElement.style.backgroundColor = 'red'
+    window.setTimeout(() => {
+      this.btn.parentElement.style.transition = 'background-color 5.5s'
+      this.btn.parentElement.style.backgroundColor = '#CCC'
+    })
     dome.timeout = window.setTimeout(() => {
       try {
         dome.parentEl.removeChild(dome)
@@ -82,9 +88,6 @@ window.AFRAME.registerComponent('smoke-power', {
       return
     }
     const dome = document.createElement('a-entity')
-    // let delay = 1000
-    // const tick = 100
-    // const total = 10000
     dome.addEventListener('instantiated', () => {
       dome.setAttribute('position', evt.detail.intersection.point)
     })
@@ -92,6 +95,13 @@ window.AFRAME.registerComponent('smoke-power', {
     this.el.components['power-cooldown'].reset()
     this.active = false
     this.btn.style.backgroundColor = 'transparent'
+    this.btn.parentElement.style.transition = ''
+    this.btn.parentElement.style.backgroundColor = 'red'
+    window.setTimeout(() => {
+      this.btn.parentElement.style.transition = 'background-color 5.5s'
+      this.btn.parentElement.style.backgroundColor = '#CCC'
+    })
+
     dome.timeout = window.setTimeout(() => {
       try {
         dome.parentEl.removeChild(dome)

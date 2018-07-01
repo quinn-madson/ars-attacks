@@ -86,10 +86,9 @@
     </a-entity>
     <a-assets>
       <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05"></a-mixin>
-      <a-asset-item id="alien" src="/assets/atat-alien/scene.gltf"></a-asset-item>
       <a-asset-item id="ufo" src="/assets/low-poly-ufo/scene.gltf"></a-asset-item>
       <a-asset-item id="base" src="/assets/base/scene.gltf"></a-asset-item>
-      <a-asset-item id="man-in-black" src="/assets/man-in-black/scene.gltf"></a-asset-item>
+      <a-asset-item id="head" src="/assets/man-bust/scene.gltf"></a-asset-item>
       <img id="smoke-texture" src="./images/smoke-texture.png" />
       <img id="hex-texture" src="./images/hex-texture.png" />
       <img id="waitfortemplates" />
@@ -125,7 +124,7 @@
       AFRAME.scenes[0].emit('increaseScore', { points: 50 });
     }
   </script>
-  <audio  autoplay loop>
+  <audio id="bgAudio"  autoplay loop>
     <source src="/sounds/background_music2.mp3" type="audio/mpeg">
   </audio>
   <script>

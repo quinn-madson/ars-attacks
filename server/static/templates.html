@@ -13,7 +13,10 @@
   </a-entity>
 </template>
 <template id="projectile-template">
-  <a-entity class="projectile" mixin="projectile-mixin" static-body></a-entity>
+  <a-entity class="projectile" mixin="projectile-mixin"
+            collision-filter="group: projectiles; collidesWith: you, default"
+            static-body>
+  </a-entity>
 </template>
 <template id="ar-template">
   <a-entity position="0 10 0" scale="5 5 5">

@@ -50,14 +50,13 @@
         scale="1 1 1" position="0 0 0" rotation="0 0 0"
         target shooter
         static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
-        collision-filter="group: players; collidesWith: projectiles; collisionForces: false">
+        collision-filter="group: you; collidesWith: projectiles; collisionForces: false">
         <a-sphere class="head" visible="false" random-color></a-sphere>
       </a-camera>
   </a-entity>
     <a-assets>
       <img id="grid" src="https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
-      <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05" 
-               collision-filter="group: projectiles; collidesWith: players, default">
+      <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05">
         <a-asset-item id="alien" src="/assets/atat-alien/scene.gltf"></a-asset-item>
         <a-asset-item id="ufo" src="/assets/low-poly-ufo/scene.gltf"></a-asset-item>
         <a-asset-item id="base" src="/assets/base/scene.gltf"></a-asset-item>

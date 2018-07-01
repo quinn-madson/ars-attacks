@@ -42,6 +42,10 @@ window.AFRAME.registerComponent('shooter', {
       })
       proj.classList.add('projectile')
       proj.setAttribute('mixin', 'projectile-mixin')
+      proj.setAttribute('collision-filter', {
+        group: 'projectiles',
+        collidesWith: 'players, default'
+      })
       proj.setAttribute('projectile', {
         dir: ray.at(1)
       })

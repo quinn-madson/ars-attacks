@@ -76,8 +76,7 @@
     environment="preset:yavapai" 
     physics="gravity: 0">
     <a-assets>
-      <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05" 
-               collision-filter="group: projectiles; collidesWith: players, default">
+      <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05">
       </a-mixin>
       <a-asset-item id="alien" src="/assets/atat-alien/scene.gltf"></a-asset-item>
       <a-asset-item id="ufo" src="/assets/low-poly-ufo/scene.gltf"></a-asset-item>
@@ -98,7 +97,7 @@
         wasd-controls look-controls
         target
         static-body="shape: sphere; sphereRadius: 0.33" physics-collider="ignoreSleep: true"
-        collision-filter="group: players; collidesWith: projectiles; collisionForces: false">
+        collision-filter="group: you; collidesWith: projectiles; collisionForces: false">
         <a-sphere class="head" visible="false" random-color></a-sphere>
       </a-entity>
       <a-entity class="right-controller" shooter="enableMouse: false; enableTouch: false"

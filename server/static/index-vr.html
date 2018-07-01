@@ -18,6 +18,7 @@
   <script src="./js/target.js"></script>
   <script src="./js/oculus-go-controls.js"></script>
   <script src="/js/html-imports.min.js"></script>
+  <script src="/js/hud.component.js"></script>
   <link rel="import" href="templates.html">
 </head>
 
@@ -91,7 +92,7 @@
     <!-- <a-entity gltf-model="#alien" position="0 -2 -1" scale="0.25 0.25 0.25"></a-entity>
     <a-entity gltf-model="#ufo" scale="0.05 0.05 0.05"></a-entity> -->
     <a-entity gltf-model="#base" scale="5 5 5"></a-entity>
-    <!-- <a-entity gltf-model="#man-in-black"></a-entity> -->
+    <a-entity gltf-model="#man-in-black"></a-entity>
     <a-entity id="cameraRig" networked="template:#cameraRig-template; attachTemplateToLocal: false"
       position rotation
       spawn-in-circle="radius:10">
@@ -100,6 +101,7 @@
         position="0 1.6 0"
         wasd-controls look-controls
         target
+        bind__hud="currentLife: life"
         static-body="shape: sphere; sphereRadius: 0.33" physics-collider="ignoreSleep: true"
         collision-filter="group: you; collidesWith: projectiles, alienBullets, humanBullets; collisionForces: false">
         <a-sphere class="head" visible="false" random-color></a-sphere>
@@ -123,8 +125,6 @@
       </a-entity>
     </a-entity>
 
-    <a-entity text="side: double; width: 10; wrapCount: 20;" position="3.2 3 -5.14" bind__text="value: life;"></a-entity>
-
     <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="visible:false"
       static-body collision-filter="collidesWith: projectiles, alienBullets, humanBullets"></a-entity>
 
@@ -141,6 +141,9 @@
       AFRAME.scenes[0].emit('increaseScore', { points: 50 });
     }
   </script>
+  <audio  autoplay loop>
+    <source src="/sounds/background_music2.mp3" type="audio/mpeg">
+  </audio>
  </body>
 
 </html>

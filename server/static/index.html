@@ -2,6 +2,7 @@
 <head>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js'></script>
   <script src='https://cdn.jsdelivr.net/npm/three.ar.js@latest/dist/three.ar.js'></script>
+  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
   <script src='js/device.js'></script>
   <script>
     var arDisplay = false;
@@ -40,15 +41,81 @@
     function checkReady() {
       if (ready.arDetect && ready.vrDetect) {
         if (arDisplay) {
-          window.location.href = 'index-ar.html'
+          $(document).ready(function(){
+            $("#arButton").removeAttr("disabled");
+          });
         } else if (vrDisplay) {
-          window.location.href = 'index-vr.html'
+          $(document).ready(function(){
+            $("#vrButton").removeAttr("disabled");
+          });
         } else {
-          window.location.href = 'index-desktop.html'
         }
       }
     }
   </script>
+  <style>
+    body {
+      background-color: #000;
+    }
+    #startScreen {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      text-align: center;
+    }
+
+    #startScreenOverlay {
+      width: 400px;
+      height: auto;
+      margin: 50px auto;
+      padding: 0;
+      font-size: 25px;
+    }
+
+    #startScreen ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #vrButton, #arButton, #twoDButton {
+      font-size: 20px;
+      margin-top: 25px;
+      color: #FFF;
+      background: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    #vrButton:disabled, #arButton:disabled, #twoDButton:disabled {
+      color: #333;
+      border-color: #333;
+      cursor: default;
+    }
+
+    #arInfo, #vrInfo, #twoDInfo {
+      font-size: 14px;
+      color: #FFF;
+    }
+  </style> 
 </head>
-<body></body>
+<body>
+    <div id="startScreen">
+        <div id="startScreenOverlay">
+          <ul>
+            <li><img src="/images/ARsAttacks_logo.png" style="width:100%;height:auto;"></li>
+            <li><button id="arButton" disabled="disabled" onclick="window.location.href = 'index-ar.html'">WebAR</button></li>
+            <li><p id="arInfo">Download the WebXR Viewer App - <a href="https://itunes.apple.com/us/app/webxr-viewer/id1295998056?mt=8">iOS</a> | <a href="">Android</a><br/>( Must have an ARKit or ARCore compatible device )</p></li>
+            <li><button id="vrButton" disabled="disabled" onclick="window.location.href = 'index-vr.html'">WebVR</button></li>
+            <li><p id="vrInfo">Works best with Rift, Vive, WindowsMR 6dof HMD</p></li>
+            <li><button id="twoDButton" onclick="window.location.href = 'index-desktop.html'">Two-D</button></li>
+            <li><p id="twoDInfo">Works great Mobile Safari or Chrome!</p></li>
+          </ul>
+        </div>
+      </div>
+      <audio  autoplay loop>
+        <source src="/sounds/background_music2.mp3" type="audio/mpeg">
+      </audio>
+</body>
 </html>

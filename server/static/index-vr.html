@@ -90,7 +90,7 @@
       <a-asset-item id="alien" src="/assets/ackack-alien-crazy-eyes/scene.gltf"></a-asset-item>
       <a-asset-item id="ufo" src="/assets/low-poly-ufo/scene.gltf"></a-asset-item>
       <a-asset-item id="base" src="/assets/base/scene.gltf"></a-asset-item>
-      <a-asset-item id="man-in-black" src="/assets/man-in-black/scene.gltf"></a-asset-item>
+      <a-asset-item id="head" src="/assets/man-bust/scene.gltf"></a-asset-item>
       <a-asset-item id="left_hand-blaster" src="/assets/left_hand-blaster/scene.gltf"></a-asset-item>
       <a-asset-item id="right-hand-shield" src="/assets/right-hand-shield/scene.gltf"></a-asset-item>
       <img id="smoke-texture" src="./images/smoke-texture.png" />
@@ -113,7 +113,7 @@
         bind__hud="currentLife: life"
         static-body="shape: sphere; sphereRadius: 0.33" physics-collider="ignoreSleep: true"
         collision-filter="group: you; collidesWith: projectiles, alienBullets, humanBullets; collisionForces: false">
-        <a-sphere class="head" visible="false" random-color></a-sphere>
+        <a-entity gltf-model="#head" visible="false" scale="0.1 0.1 0.1" position="0 -1 0"></a-entity>
       </a-entity>
       <a-entity class="right-controller" shooter="team: human; enableMouse: false; enableTouch: false"
         bind="shooter.active: gunsEnabled"

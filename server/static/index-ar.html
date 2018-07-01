@@ -11,6 +11,7 @@
   <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
   <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
   <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
   <script src="js/aframe-state-component.js"></script>
   <script src="./js/three.ar.js"></script>
   <script src="./js/aframe-ar.js"></script>
@@ -145,7 +146,7 @@
   
     <a-assets>
       <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05"></a-mixin>
-      <a-asset-item id="alien" src="/assets/atat-alien/scene.gltf"></a-asset-item>
+      <a-asset-item id="alien" src="/assets/ackack-alien-crazy-eyes/scene.gltf"></a-asset-item>
       <a-asset-item id="ufo" src="/assets/low-poly-ufo/scene.gltf"></a-asset-item>
       <a-asset-item id="base" src="/assets/base/scene.gltf"></a-asset-item>
       <a-asset-item id="man-in-black" src="/assets/man-in-black/scene.gltf"></a-asset-item>
@@ -162,8 +163,8 @@
         static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
         collision-filter="group: you; collidesWith: projectiles, alienBullets, humanBullets; collisionForces: false">
         
-        <a-entity visible="false" gltf-model="#alien" position="0 0.1 0" scale="0.125 0.125 0.125" rotation="0 0 0"></a-entity>
-        <a-entity visible="false" gltf-model="#ufo" position="0 0 0" scale="0.025 0.025 0.025" rotation="0 180 0"></a-entity>
+        <a-entity visible="false" gltf-model="#alien" position="0 -0.7 0" scale="0.125 0.125 0.125" rotation="0 180 0" animation-mixer></a-entity>
+        <a-entity visible="false" gltf-model="#ufo" position="0 -1 0" scale="0.025 0.025 0.025" rotation="0 0 0"></a-entity>
 
         <a-entity >
           <!-- When we have a raycaster hit, we use this ball to show where. -->

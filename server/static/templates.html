@@ -14,6 +14,7 @@
 </template>
 <template id="human-projectile-template">
   <a-entity class="projectile" mixin="projectile-mixin"
+            material="color: green;"
             collision-filter="group: alienBullets; collidesWith: you, default"
             static-body>
   </a-entity>
@@ -21,6 +22,7 @@
 <template id="alien-projectile-template">
   <a-entity class="projectile" mixin="projectile-mixin"
             collision-filter="group: humanBullets; collidesWith: you, default"
+             material="color: red;"
             static-body>
   </a-entity>
 </template>
@@ -36,7 +38,7 @@
   <a-entity>
     <!-- <a-entity geometry="primitive:box; width: 0.1; height: 0.1; depth: 0.2"
             material="color: white"></a-entity> -->
-    <a-entity gltf-model="#right-hand-shield" scale="0.15 0.15 0.15"></a-entity>
+    <a-entity gltf-model="#right-hand-blaster" scale="0.15 0.15 0.15"></a-entity>
   </a-entity>
 </template>
 <template id="left-hand-template">
@@ -44,7 +46,7 @@
     <!-- <a-entity static-body geometry="primitive:box; width: 0.5; height: 0.1; depth: 0.5"
               material="color: grey" -->
               collision-filter="collidesWith: projectiles">
-      <a-entity gltf-model="#left_hand-blaster" scale="0.2 0.2 0.2" collision-filter="collidesWith: projectiles"></a-entity>
+      <a-entity gltf-model="#left-hand-shield" scale="0.2 0.2 0.2" collision-filter="collidesWith: projectiles"></a-entity>
     </a-entity>
   </a-entity>
 </template>

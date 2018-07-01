@@ -51,6 +51,11 @@ window.AFRAME.registerComponent('shooter', {
       })
       proj.classList.add('projectile')
       proj.setAttribute('mixin', 'projectile-mixin')
+      if (this.data.team === 'human') {
+        proj.setAttribute('material', 'color: green')
+      } else {
+        proj.setAttribute('material', 'color: red')
+      }
       proj.setAttribute('collision-filter', {
         group: `${this.data.team}Bullets`,
         collidesWith: 'players, default'

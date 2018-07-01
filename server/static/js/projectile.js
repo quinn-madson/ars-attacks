@@ -6,10 +6,10 @@ window.AFRAME.registerComponent('projectile', {
   dependencies: ['dynamic-body'],
   init: function () {
     this.tick = window.AFRAME.utils.throttleTick(this.tick, 1000, this)
-    // const lookTarget = new window.THREE.Vector3()
-    //   .copy(this.data.dir)
+    const lookTarget = new window.THREE.Vector3()
+      .copy(this.data.dir)
     //   .add(this.el.object3D.position)
-    // this.el.object3D.lookAt(lookTarget)
+    this.el.object3D.lookAt(lookTarget)
     if (this.el.body) {
       window.setTimeout(() => this.applyForce())
     } else {

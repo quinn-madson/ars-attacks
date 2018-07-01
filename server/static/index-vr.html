@@ -31,6 +31,8 @@
     <a-assets>
       <img id="grid" src="https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
       <img id="sky" src="http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+      <!-- delay loading of networked entities until templates are imported -->
+      <img id="waitfortemplates" />
       <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05" 
                collision-filter="group: projectiles; collidesWith: players, default">
       </a-mixin>

@@ -34,4 +34,7 @@ function doImports () {
       'rotation'
     ]
   })
+  // a-assets loading is paused until templates are loaded
+  document.getElementById('waitfortemplates')
+    .dispatchEvent(new CustomEvent('load'))
 }

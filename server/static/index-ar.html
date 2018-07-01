@@ -28,18 +28,20 @@
       height: 100%;
       position: absolute;
       text-align: center;
+      background-color: rgba(0, 0, 0, 0.6)
     }
 
     #arInstOverlay {
       width: 400px;
       height: auto;
-      background-color: white;
       margin-right: auto;
       margin-left: auto;
       border-radius: 25px;
       padding: 25px;
       font-size: 25px;
       margin-top: 100px;
+      color: white;
+      /* border: 1px solid #fff; */
     }
 
     #arInstructions ul {
@@ -51,6 +53,31 @@
     #arInstructions ul button {
       font-size: 20px;
       margin-top: 25px;
+    }
+
+    #fireButton {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      text-align: center;
+      display: none;
+    }
+
+    #fireButtonOverlay {
+      width: auto;
+      height: 100%;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    #fireButton button {
+      bottom: 100px;
+      position: absolute;
+      margin-left: -45px;
+    }
+
+    #fireButton button {
+      background-color: red;
     }
   </style> 
   <script src="/js/game-state.js"></script>
@@ -163,8 +190,8 @@
 
       <a-entity text="side: double; width: 10; wrapCount: 20;" position="3.2 3 -5.14" bind__text="value: life;"></a-entity>
 
-      <a-entity environment="preset:yavapai; lightPosition: 0 1 0.8; groundColor: #ffecbe;
-      groundColor2: #ffa27a; horizonColor: #51b5df; skyColor: #091b39;
+      <a-entity environment="preset:yavapai; lightPosition: 0 1 0.8; groundColor: #c7a688;
+      groundColor2: #c78266; horizonColor: #51b5df; skyColor: #091b39;
       dressingColor: #ffecbe; playArea: 1.2; lighting: none;" id="environment"></a-entity>
 
       <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
@@ -173,7 +200,7 @@
     <div id="arInstructions">
       <div id="arInstOverlay">
         <ul>
-          <li><h3>Instructions</h3></li>
+          <li><h3>How to configure AR scene...</h3></li>
           <li>1. Find a clear, well lit surface.</li>
           <li>2. Scan area until grid appears.</li>
           <li>3. Tap grid to start game.</li>
@@ -181,6 +208,11 @@
         </ul>
       </div>
     </div>
+    <div id="fireButton">
+        <div id="fireButtonOverlay">
+          <button>Fire!</button>
+        </div>
+      </div>
   </a-scene>
   <script src="js/naf-templates-schemas.js"></script>
   <script>
@@ -295,9 +327,12 @@
             sceneVisible(true);
             scenePosition(cursor.intersection.point);
 
+            document.getElementById("fireButton").attributes.display = "block";
+
             document.removeEventListener('touchstart', this);
             document.addEventListener('mousedown', document.querySelector('#player').components.shooter.shoot)
             document.addEventListener('touchstart', document.querySelector('#player').components.shooter.shoot)
+
           }
           
           // Show plane info on click.
@@ -336,9 +371,10 @@
       if (sc.hasLoaded) { onSceneLoaded(); }
       else { sc.addEventListener('loaded', onSceneLoaded); }
     </script>
+
     <audio  autoplay loop>
-        <source src="/sounds/background_music2.mp3" type="audio/mpeg">
-      </audio>
+      <source src="/sounds/background_music2.mp3" type="audio/mpeg">
+    </audio>
  </body>
 
 </html>

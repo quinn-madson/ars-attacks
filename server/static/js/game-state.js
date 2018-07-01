@@ -12,6 +12,9 @@ AFRAME.registerState({
     },
     decreaseLife: function (state, action) {
       state.life--;
+      if (state.life <= 0) {
+        window.AFRAME.scenes[0].pause()
+      }
     },
     increaseLife: function (state, action) {
       state.life++;

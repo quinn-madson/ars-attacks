@@ -12,9 +12,15 @@
     </a-entity>
   </a-entity>
 </template>
-<template id="projectile-template">
+<template id="human-projectile-template">
   <a-entity class="projectile" mixin="projectile-mixin"
-            collision-filter="group: projectiles; collidesWith: you, default"
+            collision-filter="group: alienBullets; collidesWith: you, default"
+            static-body>
+  </a-entity>
+</template>
+<template id="alien-projectile-template">
+  <a-entity class="projectile" mixin="projectile-mixin"
+            collision-filter="group: humanBullets; collidesWith: you, default"
             static-body>
   </a-entity>
 </template>
@@ -47,4 +53,15 @@
 </template>
 <template id="cameraRig-template">
   <a-entity position rotation></a-entity>
+</template>
+<template id="desktop-template">
+  <a-entity position rotation></a-entity>
+</template>
+<template id="shield-dome-template">
+  <a-entity dome geometry="primitive: sphere; radius: 3"
+            position rotation
+            material="wireframe: true; color: purple"
+            static-body
+            collision-filter="collidesWith: alienBullets">
+  </a-entity>
 </template>

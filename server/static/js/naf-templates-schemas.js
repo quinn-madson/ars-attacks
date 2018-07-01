@@ -28,7 +28,14 @@ function doImports () {
     ]
   });
   NAF.schemas.add({
-    template: '#projectile-template',
+    template: '#human-projectile-template',
+    components: [
+      'position',
+      'rotation'
+    ]
+  });
+  NAF.schemas.add({
+    template: '#alien-projectile-template',
     components: [
       'position',
       'rotation'
@@ -51,6 +58,12 @@ function doImports () {
     components: [
       'position',
       'rotation'
+    ]
+  })
+  NAF.schemas.add({
+    template: '#shield-dome-template',
+    components: [
+      'position'
     ]
   })
   // a-assets loading is paused until templates are loaded

@@ -1,5 +1,6 @@
 window.AFRAME.registerComponent('shooter', {
   schema: {
+    team: {type: 'string', oneOf: ['human', 'alien']},
     direction: { type: 'vec3', default: { x: 0, y: 0, z: -1 } },
     enableTouch: { default: true },
     enableMouse: { default: true }
@@ -37,13 +38,13 @@ window.AFRAME.registerComponent('shooter', {
       proj.setAttribute('position', ray.at(0.3))
       proj.setAttribute('rotation', rotation)
       proj.setAttribute('networked', {
-        template: '#projectile-template',
+        template: `#${this.data.team}-projectile-template`,
         attachTemplateToLocal: false
       })
       proj.classList.add('projectile')
       proj.setAttribute('mixin', 'projectile-mixin')
       proj.setAttribute('collision-filter', {
-        group: 'projectiles',
+        group: `${this.data.team}Bullets`,
         collidesWith: 'players, default'
       })
       proj.setAttribute('projectile', {

@@ -1,5 +1,116 @@
 <html>
+
+<head>
+  <meta charset="utf-8">
+  <title>ARs Attacks!</title>
+  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+  <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+  <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
+  <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+  <script src="js/aframe-state-component.js"></script>
+  <script src="./js/three.ar.js"></script>
+  <script src="./js/aframe-ar.js"></script>
+  <script src="/js/spawn-in-circle.component.js"></script>
+  <script src="/js/game-state.js"></script>
+  <script src="./js/projectile.js"></script>
+  <script src="./js/shooter.js"></script>
+  <script src="./js/target.js"></script>
+  <script src="./js/domes.js"></script>
+  <script src="/js/html-imports.min.js"></script>
+  <style>
+    #ui-2d {
+      position: fixed;
+      top: 90%;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000 !important;
+      background-color: #CCC;
+      opacity: 0.75;
+    }
+    #ui-2d span {
+      display: inline-block;
+      width: 50%;
+      height: 100%;
+      text-align: center;
+      border: 3px solid black;
+      box-sizing: border-box;
+      margin-left: -1px;
+      margin-right: -1px;
+      cursor: pointer;
+    }
+
+  </style>
+  <link rel="import" href="templates.html">
+</head>
+
 <body>
-  <h1>Desktop</h1>
-</body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+  <script src="/easyrtc/easyrtc.js"></script>
+  <div id="ui-2d">
+    <span id="helpHumans" onclick="document.querySelector('#player').emit('help-humans')">Help Humans</span>
+    <span id="helpAliens" onclick="document.querySelector('#player').emit('help-Aliens')">Help Aliens</span>
+  </div>
+  <a-scene networked-scene="
+      room: dev;
+      debug: true;
+      adapter: wseasyrtc;
+     "
+    physics="gravity: 0"
+    environment="
+      preset:yavapai; lightPosition: 0 1 0.8; groundColor: #ffecbe;
+      groundColor2: #ffa27a; horizonColor: #51b5df; skyColor: #091b39
+      dressingColor: #ffecbe; playArea: 1.2"
+    >
+    <a-entity position="0 50 0" scale="5 5 5" rotation="-90 0 0"
+      networked="template:#desktop-template;attachTemplateToLocal:false;">
+      <a-entity id="player" class="avatar" camera look-controls
+        cursor="rayOrigin: mouse" raycaster="objects: #ground"
+        shield-power
+        scale="1 1 1" position="0 0 0" rotation="0 0 0">
+      </a-entity>
+    </a-entity>
+    <a-assets>
+      <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05"></a-mixin>
+      <a-asset-item id="alien" src="/assets/atat-alien/scene.gltf"></a-asset-item>
+      <a-asset-item id="ufo" src="/assets/low-poly-ufo/scene.gltf"></a-asset-item>
+      <a-asset-item id="base" src="/assets/base/scene.gltf"></a-asset-item>
+      <a-asset-item id="man-in-black" src="/assets/man-in-black/scene.gltf"></a-asset-item>
+      <img id="waitfortemplates" />
+    </a-assets>
+    <!-- <a-entity gltf-model="#alien" position="0 -2 -1" scale="0.25 0.25 0.25"></a-entity>
+    <a-entity gltf-model="#ufo" scale="0.05 0.05 0.05"></a-entity> -->
+    <a-entity gltf-model="#base" scale="5 5 5"></a-entity>
+    <!-- <a-entity gltf-model="#man-in-black"></a-entity> -->
+
+    <!-- <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;"
+      camera spawn-in-circle="radius:10"
+      position="0 1.6 0"
+      wasd-controls look-controls
+      target
+      static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
+      collision-filter="group: players; collidesWith: projectiles; collisionForces: false">
+      <a-sphere class="head" visible="false" random-color></a-sphere>
+    </a-entity> -->
+
+    <a-entity text="side: double; width: 10; wrapCount: 20;" position="3.2 3 -5.14" bind__text="value: life;"></a-entity>
+    <a-entity id="ground" position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
+      material="visible: false"
+      static-body collision-filter="collidesWith: projectiles, alienBullets, humanBullets"></a-entity>
+  </a-scene>
+  <script src="js/naf-templates-schemas.js"></script>
+  <script>
+    // Called by Networked-Aframe when connected to server
+    function onConnect() {
+      console.log("onConnect", new Date());
+    }
+
+    function increasePointsExample() {
+      AFRAME.scenes[0].emit('increaseScore', { points: 50 });
+    }
+  </script>
+ </body>
+
 </html>

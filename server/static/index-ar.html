@@ -48,9 +48,9 @@
       networked="template:#ar-template;attachTemplateToLocal:false;">
       <a-camera id="player" class="avatar"
         scale="1 1 1" position="0 0 0" rotation="0 0 0"
-        target shooter
+        target shooter="team: alien"
         static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
-        collision-filter="group: you; collidesWith: projectiles; collisionForces: false">
+        collision-filter="group: you; collidesWith: projectiles, alienBullets, humanBullets; collisionForces: false">
         <a-sphere class="head" visible="false" random-color></a-sphere>
       </a-camera>
   </a-entity>
@@ -82,7 +82,7 @@
     <a-entity text="side: double; width: 10; wrapCount: 20;" position="3.2 3 -5.14" bind__text="value: life;"></a-entity>
 
     <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4;"
-      static-body collision-filter="collidesWith: projectiles"></a-entity>
+      static-body collision-filter="collidesWith: projectiles, alienBullets, humanBullets"></a-entity>
 
     <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
     <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>

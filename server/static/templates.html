@@ -67,3 +67,9 @@
               animation__opacity="property: material.opacity; from: 0.5; to: 0; dur: 10000"></a-entity>
   </a-entity>
 </template>
+<template id="dead-player-template">
+  <a-entity geometry="primitive: sphere; radius: 0.75"
+            material="color: red; transparent: true; opacity: 0; side: double"
+            animation__fadein="property: material.opacity; from: 0; to: 0.8; dur: 2000">
+  </a-entity>
+</template>

@@ -9,7 +9,7 @@ window.AFRAME.registerComponent('hud', {
     warnColor: { default: 'yellow' },
     badColor: { default: 'red' },
     space: { default: 0 },
-    qiMeterPosition: { default: '-0.27 -0.28 -0.67' },
+    qiMeterPosition: { default: '-0.13 0.051 -0.57' },
   },
   init: function () {
     this.qiCursor = 0

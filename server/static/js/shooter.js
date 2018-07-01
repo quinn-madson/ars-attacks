@@ -43,7 +43,7 @@ window.AFRAME.registerComponent('shooter', {
       direction.transformDirection(this.el.object3D.matrixWorld).normalize()
       this.el.object3D.getWorldPosition(position)
       ray.set(position, direction)
-      proj.setAttribute('position', ray.at(0.3))
+      proj.setAttribute('position', ray.at(0.7))
       proj.setAttribute('rotation', rotation)
       proj.setAttribute('networked', {
         template: `#${this.data.team}-projectile-template`,

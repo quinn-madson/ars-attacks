@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>ARs Attacks!</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
   <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
   <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
@@ -28,7 +29,8 @@
       height: 100%;
       position: absolute;
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.6)
+      background-color: rgba(0, 0, 0, 0.6);
+      font-family: 'Roboto Mono', monospace;
     }
 
     #arInstOverlay {
@@ -38,10 +40,14 @@
       margin-left: auto;
       border-radius: 25px;
       padding: 25px;
-      font-size: 25px;
+      font-size: 18px;
       margin-top: 100px;
       color: white;
       /* border: 1px solid #fff; */
+    }
+
+    #arInstOverlay h3 {
+      font-size:22px;
     }
 
     #arInstructions ul {

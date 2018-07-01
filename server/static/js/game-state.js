@@ -13,9 +13,15 @@ AFRAME.registerState({
       state.score += action.points;
     },
     decreaseLife: function (state, action) {
+      var hitSound = document.createElement('audio')
+      var hitSource = document.createElement('source')
+      hitSource.setAttribute('src', '/sounds/hit_sound.wav')
+      hitSource.setAttribute('type', 'audio/wav')
+      hitSound.appendChild(hitSource)
+      hitSound.play()
       state.life -= action.power || 1;
       if (state.life <= 0) {
-        window.AFRAME.scenes[0].pause()
+        AFRAME.scenes[0].emit('endGame')
       }
     },
     increaseLife: function (state, action) {

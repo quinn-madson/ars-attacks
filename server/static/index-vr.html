@@ -36,26 +36,36 @@
       <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05" 
                collision-filter="group: projectiles; collidesWith: players, default">
       </a-mixin>
-      <a-mixin id="controller-mixin" shooter></a-mixin>
     </a-assets>
-
-    <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;"
-      camera spawn-in-circle="radius:10"
-      position="0 1.6 0"
-      wasd-controls look-controls
-      target
-      static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
-      collision-filter="group: players; collidesWith: projectiles; collisionForces: false">
-      <a-sphere class="head" visible="false" random-color></a-sphere>
-    </a-entity>
-    <a-entity class="right-controller" mixin="controller-mixin"
-       daydream-controls="hand: right" gearvr-controls="hand: right"
-       oculus-touch-controls="hand: right" vive-controls="hand: right"
-       windows-motion-controls="hand: right" oculus-go-controls="hand: right">
-    </a-entity>
-      <a-entity class="left-controller" mixin="controller-mixin"
-       oculus-touch-controls="hand: left" vive-controls="hand: left"
-       windows-motion-controls="hand: left">
+    <a-entity id="cameraRig" networked="template:#cameraRig-template; attachTemplateToLocal: false"
+      position rotation
+      spawn-in-circle="radius:10">
+      <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;"
+        camera
+        position="0 1.6 0"
+        wasd-controls look-controls
+        target
+        static-body="shape: sphere; sphereRadius: 0.33" physics-collider="ignoreSleep: true"
+        collision-filter="group: players; collidesWith: projectiles; collisionForces: false">
+        <a-sphere class="head" visible="false" random-color></a-sphere>
+      </a-entity>
+      <a-entity class="right-controller" shooter="enableMouse: false; enableTouch: false"
+        position rotation
+        networked="template:#right-hand-template; attachTemplateToLocal: true"
+        daydream-controls="hand: right; model: false"
+        gearvr-controls="hand: right; model: false"
+        oculus-touch-controls="hand: right; model: false"
+        vive-controls="hand: right; model: false"
+        windows-motion-controls="hand: right; model: false"
+        oculus-go-controls="hand: right; model: false">
+      </a-entity>
+      <a-entity class="left-controller"
+        position rotation
+        networked="template:#left-hand-template;attachTemplateToLocal: true"
+        oculus-touch-controls="hand: left; model: false"
+        vive-controls="hand: left; mode: false"
+        windows-motion-controls="hand: left; model: false">
+      </a-entity>
     </a-entity>
 
     <a-entity text="side: double; width: 10; wrapCount: 20;" position="3.2 3 -5.14" bind__text="value: life;"></a-entity>

@@ -39,8 +39,11 @@
       debug: true;
       adapter: wseasyrtc;
      "
-    physics="gravity: 0"
-    environment="preset:yavapai">
+    environment="
+      preset:yavapai; lightPosition: 0 1 0.8; groundColor: #ffecbe;
+      groundColor2: #ffa27a; horizonColor: #51b5df; skyColor: #091b39;
+      dressingColor: #ffecbe; playArea: 1.2"
+    physics="gravity: 0">
 
     <!-- When we have a raycaster hit, we use this ball to show where. -->
     <a-sphere id="ball" radius="0.01" position="0 0.005 -0.5"></a-sphere>
@@ -84,9 +87,6 @@
 
     <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4;"
       static-body collision-filter="collidesWith: projectiles, alienBullets, humanBullets"></a-entity>
-
-    <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
-    <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
   </a-scene>
   <script src="js/naf-templates-schemas.js"></script>
   <script>

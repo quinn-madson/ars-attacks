@@ -12,7 +12,6 @@
   <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
   <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
   <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
-  <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
   <script src="js/aframe-state-component.js"></script>
   <script src="./js/three.ar.js"></script>
   <script src="./js/aframe-ar.js"></script>
@@ -26,6 +25,8 @@
   <script src="/js/hud.component.js"></script>
   <script src="/js/lobby.component.js"></script>
   <script src="/js/death.js"></script>
+  <script src="/js/animation-mixer.js"></script>
+
 
   <style>
     #ui-2d {
@@ -131,11 +132,7 @@
       AFRAME.scenes[0].emit('increaseScore', { points: 50 });
     }
   </script>
-<<<<<<< HEAD
-  <audio id="bgAudio"  autoplay loop>
-=======
   <audio id="bgAudio" autoplay loop>
->>>>>>> will
     <source src="/sounds/background_music2.mp3" type="audio/mpeg">
   </audio>
   <script>

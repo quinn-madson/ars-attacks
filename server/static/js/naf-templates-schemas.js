@@ -33,5 +33,17 @@ function doImports () {
       'position',
       'rotation'
     ]
-  })
+  });
+  NAF.schemas.add({
+    template: '#ar-template',
+    components: [
+      { selector: '.avatar', component: 'rotation' },
+      { selector: '.avatar', component: 'position' },
+      {
+        selector: '.head',
+        component: 'material',
+        property: 'color'
+      }
+    ]
+  });
 }

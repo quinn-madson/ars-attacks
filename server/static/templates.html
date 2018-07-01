@@ -68,11 +68,11 @@
 <template id="smoke-dome-template">
   <a-entity dome geometry="primitive: sphere; radius: 10"
             position rotation scale
-            material="transparent: true; opacity: 1; color: white; side: back; roughness: 1"
+            material="transparent: true; opacity: 1; src: #smoke-texture; side: back; roughness: 1"
             animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 10000"
             animation__opacity="property: material.opacity; from: 1; to: 0; delay: 1000; dur: 9000">
     <a-entity geometry="primitive: sphere; radius: 10"
-              material="transparent: true; opacity: 0.5; color: white; side: front; roughness: 1"
+              material="transparent: true; opacity: 0.5; src: #smoke-texture; side: front; roughness: 1"
               animation__opacity="property: material.opacity; from: 0.5; to: 0; dur: 10000"></a-entity>
   </a-entity>
 </template>

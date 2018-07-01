@@ -33,7 +33,6 @@ function doImports () {
       'position',
       'rotation'
     ]
-<<<<<<< HEAD
   });
   NAF.schemas.add({
     template: '#ar-template',
@@ -47,8 +46,6 @@ function doImports () {
       }
     ]
   });
-=======
-  })
   NAF.schemas.add({
     template: '#cameraRig-template',
     components: [
@@ -59,5 +56,4 @@ function doImports () {
   // a-assets loading is paused until templates are loaded
   document.getElementById('waitfortemplates')
     .dispatchEvent(new CustomEvent('load'))
->>>>>>> controllers
 }

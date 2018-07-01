@@ -17,6 +17,7 @@
   <script src="./js/target.js"></script>
   <script src="./js/oculus-go-controls.js"></script>
   <script src="/js/html-imports.min.js"></script>
+  <script src="/js/hud.component.js"></script>
   <link rel="import" href="templates.html">
 </head>
 
@@ -43,13 +44,14 @@
     <!-- <a-entity gltf-model="#alien" position="0 -2 -1" scale="0.25 0.25 0.25"></a-entity>
     <a-entity gltf-model="#ufo" scale="0.05 0.05 0.05"></a-entity> -->
     <a-entity gltf-model="#base" scale="5 5 5"></a-entity>
-    <!-- <a-entity gltf-model="#man-in-black"></a-entity> -->
+    <a-entity gltf-model="#man-in-black"></a-entity>
 
     <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;"
       camera spawn-in-circle="radius:10"
       position="0 1.6 0"
       wasd-controls look-controls
       target
+      bind__hud="currentLife: life"
       static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
       collision-filter="group: players; collidesWith: projectiles; collisionForces: false">
       <a-sphere class="head" visible="false" random-color></a-sphere>
@@ -63,8 +65,6 @@
        oculus-touch-controls="hand: left" vive-controls="hand: left"
        windows-motion-controls="hand: left">
     </a-entity>
-
-    <a-entity text="side: double; width: 10; wrapCount: 20;" position="3.2 3 -5.14" bind__text="value: life;"></a-entity>
 
     <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="visible:false"
       static-body collision-filter="collidesWith: projectiles"></a-entity>

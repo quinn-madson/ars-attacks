@@ -141,9 +141,14 @@
       AFRAME.scenes[0].emit('increaseScore', { points: 50 });
     }
   </script>
-  <audio autoplay loop>
+  <audio id="bgAudio" autoplay loop>
     <source src="/sounds/background_music2.mp3" type="audio/mpeg">
   </audio>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(event) { 
+      document.getElementById("bgAudio").volume = 0.25;
+    });
+  </script>
   <audio id="peace">
       <source src="/sounds/wecomeinpeace.wav" type="audio/wav">
   </audio>

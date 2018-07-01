@@ -5,8 +5,10 @@ window.AFRAME.registerComponent('target', {
   },
   hit: function (evt) {
     for (let e of evt.detail.els) {
-      if (e.classList.contains('projectile') && !window.NAF.utils.isMine(e)) {
-        window.NAF.utils.takeOwnership(e)
+      if (e.classList.contains('projectile')) {
+        if (!window.NAF.utils.isMine(e)) {
+          window.NAF.utils.takeOwnership(e)
+        }
         e.parentEl.removeChild(e)
         this.el.sceneEl.emit('decreaseLife')
       }

@@ -21,6 +21,8 @@
   <script src="./js/target.js"></script>
   <script src="./js/domes.js"></script>
   <script src="/js/html-imports.min.js"></script>
+  <script src="/js/hud.component.js"></script>
+  <script src="/js/lobby.component.js"></script>
   <style>
     #ui-2d {
       position: fixed;
@@ -75,6 +77,7 @@
     <a-entity position="0 50 0" scale="5 5 5" rotation="-90 0 0"
       networked="template:#desktop-template;attachTemplateToLocal:false;">
       <a-entity id="player" class="avatar" camera
+        lobby
         cursor="rayOrigin: mouse" raycaster="objects: #ground"
         shield-power bind__shield="shield-power.active: gunsEnabled"
         smoke-power bind__smoke="smoke-power.active: gunsEnabled"

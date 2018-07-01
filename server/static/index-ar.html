@@ -9,6 +9,8 @@
   <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
   <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
   <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
+  <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+  <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
   <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
   <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
   <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
@@ -93,6 +95,8 @@
   <script src="./js/target.js"></script>
   <script src="./js/oculus-go-controls.js"></script>
   <script src="/js/html-imports.min.js"></script>
+  <script src="/js/hud.component.js"></script>
+  <script src="/js/lobby.component.js"></script>
   <link rel="import" href="templates.html">
 </head>
 
@@ -157,6 +161,8 @@
     <a-entity id="playerHolder" position="0 0 0" scale="1 1 1"
       networked="template:#ar-template;attachTemplateToLocal:false;">
       <a-camera id="player" class="avatar"
+        lobby
+        bind__hud="currentLife: life"
         scale="1 1 1" position="0 0 0" rotation="0 0 0"
         target shooter="team: alien; enableTouch:false; enableMouse:false;"
         bind="shooter.active: gunsEnabled"

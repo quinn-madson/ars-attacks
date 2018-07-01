@@ -10,6 +10,8 @@
   <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
   <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
   <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
+  <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+  <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
   <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
   <script src="js/aframe-state-component.js"></script>
   <script src="./js/three.ar.js"></script>
@@ -23,6 +25,8 @@
   <script src="/js/html-imports.min.js"></script>
   <script src="/js/hud.component.js"></script>
   <script src="/js/lobby.component.js"></script>
+  <script src="/js/death.js"></script>
+
   <style>
     #ui-2d {
       position: fixed;
@@ -58,10 +62,10 @@
   <script src="/easyrtc/easyrtc.js"></script>
   <div id="ui-2d">
     <span id="helpHumans" onclick="document.querySelector('#player').emit('help-humans')">
-      Help Humans
+      Help Humans - Deploy Shield
     </span>
     <span id="helpAliens" onclick="document.querySelector('#player').emit('help-aliens')">
-      Help Aliens
+      Help Aliens - Deploy Smokescreen
     </span>
   </div>
   <a-scene networked-scene="
@@ -86,11 +90,14 @@
     </a-entity>
     <a-assets>
       <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05"></a-mixin>
+      <a-asset-item id="alien" src="/assets/ackack-alien-crazy-eyes/scene.gltf"></a-asset-item>
       <a-asset-item id="ufo" src="/assets/low-poly-ufo/scene.gltf"></a-asset-item>
       <a-asset-item id="base" src="/assets/base/scene.gltf"></a-asset-item>
       <a-asset-item id="head" src="/assets/man-bust/scene.gltf"></a-asset-item>
       <img id="smoke-texture" src="./images/smoke-texture.png" />
       <img id="hex-texture" src="./images/hex-texture.png" />
+      <img id="youdie-texture" src="./images/youdie.png" />
+
       <img id="waitfortemplates" />
     </a-assets>
     <!-- <a-entity gltf-model="#alien" position="0 -2 -1" scale="0.25 0.25 0.25"></a-entity>
@@ -124,7 +131,11 @@
       AFRAME.scenes[0].emit('increaseScore', { points: 50 });
     }
   </script>
+<<<<<<< HEAD
   <audio id="bgAudio"  autoplay loop>
+=======
+  <audio id="bgAudio" autoplay loop>
+>>>>>>> will
     <source src="/sounds/background_music2.mp3" type="audio/mpeg">
   </audio>
   <script>

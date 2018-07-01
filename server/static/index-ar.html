@@ -97,6 +97,8 @@
   <script src="/js/html-imports.min.js"></script>
   <script src="/js/hud.component.js"></script>
   <script src="/js/lobby.component.js"></script>
+  <script src="/js/death.js"></script>
+
   <link rel="import" href="templates.html">
 </head>
 
@@ -156,6 +158,7 @@
       <a-asset-item id="head" src="/assets/man-bust/scene.gltf"></a-asset-item>
       <img id="smoke-texture" src="./images/smoke-texture.png" />
       <img id="hex-texture" src="./images/hex-texture.png" />
+      <img id="youdie-texture" src="./images/youdie.png" />
       <img id="waitfortemplates" />
     </a-assets>
 
@@ -164,6 +167,7 @@
       <a-camera id="player" class="avatar"
         lobby
         bind__hud="currentLife: life"
+        death bind__death="active: dead"
         scale="1 1 1" position="0 0 0" rotation="0 0 0"
         target shooter="team: alien; enableTouch:false; enableMouse:false;"
         bind="shooter.active: gunsEnabled"

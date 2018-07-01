@@ -36,7 +36,7 @@ window.AFRAME.registerComponent('shield-power', {
       this.active = false
       this.btn.style.backgroundColor = 'transparent'
     })
-    this.el.addEventListener('click', this.makeShield)
+    this.el.addEventListener('mouseup', this.makeShield)
   },
   update: function () {
     if (!this.data.active) {
@@ -60,9 +60,9 @@ window.AFRAME.registerComponent('shield-power', {
     this.btn.parentElement.style.transition = ''
     this.btn.parentElement.style.backgroundColor = 'red'
     window.setTimeout(() => {
-      this.btn.parentElement.style.transition = 'background-color 5.5s'
+      this.btn.parentElement.style.transition = 'background-color 5s'
       this.btn.parentElement.style.backgroundColor = '#CCC'
-    })
+    }, 500)
     dome.timeout = window.setTimeout(() => {
       try {
         dome.parentEl.removeChild(dome)
@@ -92,7 +92,7 @@ window.AFRAME.registerComponent('smoke-power', {
       this.active = false
       this.btn.style.backgroundColor = 'transparent'
     })
-    this.el.addEventListener('click', this.makeSmoke)
+    this.el.addEventListener('mouseup', this.makeSmoke)
   },
   dependencies: ['power-cooldown'],
   makeSmoke: function (evt) {
@@ -110,9 +110,9 @@ window.AFRAME.registerComponent('smoke-power', {
     this.btn.parentElement.style.transition = ''
     this.btn.parentElement.style.backgroundColor = 'red'
     window.setTimeout(() => {
-      this.btn.parentElement.style.transition = 'background-color 5.5s'
+      this.btn.parentElement.style.transition = 'background-color 5s'
       this.btn.parentElement.style.backgroundColor = '#CCC'
-    })
+    }, 500)
 
     dome.timeout = window.setTimeout(() => {
       try {

@@ -19,9 +19,12 @@ window.AFRAME.registerComponent('projectile', {
         { once: true }
       )
     }
+    this.duration = 0
   },
-  tick: function () {
-    if (this.el.object3D.position.lengthSq() > 625) {
+  tick: function (t, dt) {
+    this.duration += dt
+    if (this.el.object3D.position.lengthSq() > 625 ||
+        this.duration > 10000) {
       this.el.parentEl.removeChild(this.el)
     }
   },

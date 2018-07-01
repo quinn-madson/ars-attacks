@@ -171,7 +171,7 @@
         scale="1 1 1" position="0 0 0" rotation="0 0 0"
         target shooter="team: alien; enableTouch:false; enableMouse:false;"
         bind="shooter.active: gunsEnabled"
-        static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
+        static-body="shape: sphere; sphereRadius: 1.5" physics-collider="ignoreSleep: true"
         collision-filter="group: you; collidesWith: projectiles, alienBullets, humanBullets; collisionForces: false">
         
         <a-entity visible="false" gltf-model="#alien" position="0 -0.7 0" scale="0.125 0.125 0.125" rotation="0 180 0" animation-mixer></a-entity>

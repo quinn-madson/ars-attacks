@@ -149,6 +149,7 @@
       <a-asset-item id="ufo" src="/assets/low-poly-ufo/scene.gltf"></a-asset-item>
       <a-asset-item id="base" src="/assets/base/scene.gltf"></a-asset-item>
       <a-asset-item id="man-in-black" src="/assets/man-in-black/scene.gltf"></a-asset-item>
+      <img id="smoke-texture" src="./images/smoke-texture.png" />
       <img id="waitfortemplates" />
     </a-assets>
 
@@ -157,6 +158,7 @@
       <a-camera id="player" class="avatar"
         scale="1 1 1" position="0 0 0" rotation="0 0 0"
         target shooter="team: alien; enableTouch:false; enableMouse:false;"
+        bind="shooter.active: gunsEnabled"
         static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
         collision-filter="group: you; collidesWith: projectiles, alienBullets, humanBullets; collisionForces: false">
         

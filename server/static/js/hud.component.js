@@ -15,7 +15,7 @@ window.AFRAME.registerComponent('hud', {
     this.qiCursor = 0
     this.qiMeter = document.createElement('a-entity')
     this.qiMeter.setAttribute('position', this.data.qiMeterPosition)
-    this.qiMeter.setAttribute('rotation', '0 0 -90')
+    this.qiMeter.setAttribute('rotation', '0 0 90')
     this.el.appendChild(this.qiMeter)
   },
   update: function () {
@@ -39,8 +39,5 @@ window.AFRAME.registerComponent('hud', {
       this.qiCursor = this.qiCursor + this.data.space + this.data.width
       this.qiMeter.appendChild(qi)
     }
-  },
-  remove: function () {
-    this.el.removeEventListener('stateadded', this.start)
   }
 })

@@ -87,6 +87,15 @@
       color: #fff;
     }
 
+    #startScreen a, #startScreen a:visited {
+      color: #d80a00;
+    }
+
+    #githubLink {
+      padding-top:25px;
+      display: block;
+    }
+
     #vrButton, #arButton, #twoDButton {
       font-size: 20px;
       margin-top: 25px;
@@ -117,11 +126,12 @@
             <li><img src="/images/ARsAttacks_logo.png" style="width:80%;height:auto;"></li>
             <li><h2>An Interplanetary WebXR Adventure!</h2></li>
             <li><button id="arButton" disabled="disabled" onclick="window.location.href = 'index-ar.html'">Aliens (WebAR)</button></li>
-            <li><p id="arInfo">Download the WebXR Viewer App - <a href="https://itunes.apple.com/us/app/webxr-viewer/id1295998056?mt=8">iOS</a> | <a href="">Android</a><br/>( Must have an ARKit or ARCore compatible device )</p></li>
+            <li><p id="arInfo">Download the WebXR Viewer App - <a href="https://itunes.apple.com/us/app/webxr-viewer/id1295998056?mt=8" target="_blank">iOS</a> | <a href="https://github.com/google-ar/WebARonARCore" target="_blank">Android</a><br/>( Must have an ARKit or ARCore compatible device )</p></li>
             <li><button id="vrButton" disabled="disabled" onclick="window.location.href = 'index-vr.html'">Humans (WebVR)</button></li>
             <li><p id="vrInfo">Works best with Rift, Vive, WindowsMR 6dof HMD</p></li>
             <li><button id="twoDButton" onclick="window.location.href = 'index-desktop.html'">Drones (2D)</button></li>
             <li><p id="twoDInfo">Works great Mobile Safari or Chrome!</p></li>
+            <li><a id="githubLink" href="https://github.com/quinn-madson/ars-attacks" target="_blank">Source available on Github</a></li>
           </ul>
         </div>
       </div>

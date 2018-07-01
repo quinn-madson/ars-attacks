@@ -6,7 +6,9 @@
   <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
   <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
-  <link rel="import" href="templates.html">
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+  <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
+  <script src="js/aframe-state-component.js"></script>
   <script src="./js/three.ar.js"></script>
   <script src="./js/aframe-ar.js"></script>
   <script src="/js/spawn-in-circle.component.js"></script>
@@ -17,102 +19,64 @@
         
   <!-- Prevent touch causing flicker on iOS. -->
   <style> * { -webkit-tap-highlight-color: rgba(0,0,0,0); } </style>  
+  <script src="/js/game-state.js"></script>
+  <script src="./js/projectile.js"></script>
+  <script src="./js/shooter.js"></script>
+  <script src="./js/target.js"></script>
+  <script src="./js/oculus-go-controls.js"></script>
+  <script src="/js/html-imports.min.js"></script>
+  <link rel="import" href="templates.html">
 </head>
 
 <body>
-  <!-- Anchor / Column. -->
-  <script>
-    AFRAME.registerComponent('thing', {
-      init: function () {
-        this.el.setAttribute('geometry', {primitive:'box', width:0.01, depth:0.01, height:1});
-        this.el.setAttribute('position', {y:0.5});
-      }
-    });            
-  </script>
-  <script>
-    /////////////////////////////////////////////////////////////////////////////////////////
-    // NOTE: for A-Frame 0.8.x, we need to listen for cursor intersection changes separately
-    //        
-      AFRAME.registerComponent('track-cursor-intersection', {
-        init: function () {
-          this.point = new THREE.Vector3();
-        },
-        
-        tick: function (t, dt) {
-          // NOTE: not throttled to raycaster checkIntersections interval!
-          var cursor = this.el.components.cursor;
-          var raycaster = this.el.components.raycaster;
-          var newIntersection;
-          // NOTE: A-Frame 0.7.1 (which doesn't need this) does not have raycaster.intersections
-          if (cursor && raycaster && raycaster.intersections) {
-            newIntersection = raycaster.intersections.length ? raycaster.intersections[0] : undefined;
-            // NOTE: the intersections are always different (!) so check object
-            if ((cursor.intersection && cursor.intersection.object) !== (newIntersection && newIntersection.object)) {
-              // new cursor intersection object
-              cursor.intersection = newIntersection;              
-              this.el.emit('cursor-intersection-changed', cursor.intersection, false);
-            } else
-            if (newIntersection && !newIntersection.point.equals(cursor.intersection.point)) {
-              // new cursor intersection point
-              cursor.intersection.point.copy(newIntersection.point);
-              this.el.emit('cursor-intersection-changed', newIntersection, false);
-            } else {
-              // same or no cursor intersection point
-            }
-          }
-        }
-      });            
-    //
-    /////////////////////////////////////////////////////////////////////////////////////////
-  </script> 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
   <script src="/easyrtc/easyrtc.js"></script>
-  <!-- Include planes handling example code. -->
   <script src="/js/planes-example.js"></script>   
   <a-scene ar networked-scene="
       room: dev;
       debug: true;
       adapter: wseasyrtc;
-    ">
-    <a-assets>
-      <img id="grid" src="https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
-    </a-assets>
-
-    <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera="userHeight: 1.6" spawn-in-circle="radius:3"
-      wasd-controls look-controls>
-      <a-sphere class="head" visible="false" random-color></a-sphere>
-    </a-entity>
-
-    <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; "></a-entity>
-
-    <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
-    <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
+     "
+    physics="gravity: 0">
 
     <!-- When we have a raycaster hit, we use this ball to show where. -->
     <a-sphere id="ball" radius="0.01" position="0 0.005 -0.5"></a-sphere>
 
-    <a-camera>
-      <!-- A hit from AR, rather than A-Frame objects, hits this entity. -->
-      <a-entity id="ar-world"></a-entity>
-      
-      <!-- Declare a cursor, and what objects its raycaster hit (including AR). -->
-      <!-- NOTE: ar-raycaster VRHit uses a "tolerance" fudge factor, so imprecise -->
-      <a-entity cursor="fuse:false" track-cursor-intersection
-                raycaster="objects:.plane;recursive:false" 
-                ar-raycaster="el:#ar-world"></a-entity>
-      
-      <!-- Separate the cursor appearance.-->
-      <a-entity position="0 0 -0.1"
-                scale="0.001 0.001 0.001"
-                geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1" 
-                material="color: yellow; shader: flat; transparent:true"></a-entity>
-      
-      <!-- Heads-up text display. -->
-      <a-text id="hud" 
-              scale="0.01 0.01 0.01" position="0 -0.025 -0.1" 
-              color="yellow" align="center" 
-              value="Hi there"></a-text>
-    </a-camera>
+    <a-entity position="0 10 0" scale="5 5 5"
+      networked="template:#ar-template;attachTemplateToLocal:false;">
+      <a-camera id="player" class="avatar"
+        scale="1 1 1" position="0 0 0" rotation="0 0 0"
+        target shooter
+        static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
+        collision-filter="group: players; collidesWith: projectiles; collisionForces: false">
+        <a-sphere class="head" visible="false" random-color></a-sphere>
+      </a-camera>
+  </a-entity>
+    <a-assets>
+      <img id="grid" src="https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
+      <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05" 
+               collision-filter="group: projectiles; collidesWith: players, default">
+      </a-mixin>
+      <a-mixin id="controller-mixin" shooter></a-mixin>
+    </a-assets>
+
+    <!-- <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;"
+      camera spawn-in-circle="radius:10"
+      position="0 1.6 0"
+      wasd-controls look-controls
+      target
+      static-body="shape: sphere; sphereRadius: 0.5" physics-collider="ignoreSleep: true"
+      collision-filter="group: players; collidesWith: projectiles; collisionForces: false">
+      <a-sphere class="head" visible="false" random-color></a-sphere>
+    </a-entity> -->
+
+    <a-entity text="side: double; width: 10; wrapCount: 20;" position="3.2 3 -5.14" bind__text="value: life;"></a-entity>
+
+    <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4;"
+      static-body collision-filter="collidesWith: projectiles"></a-entity>
+
+    <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
+    <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
   </a-scene>
   <script src="js/naf-templates-schemas.js"></script>
   <script>
@@ -121,6 +85,9 @@
       console.log("onConnect", new Date());
     }
 
+    function increasePointsExample() {
+      AFRAME.scenes[0].emit('increaseScore', { points: 50 });
+    }
   </script>
   <script>
       var sc = document.querySelector('a-scene');
@@ -186,54 +153,54 @@
 // NOTE: first surprise with master, we never get window click anymore? worked around.
 // NOTE: second surprise with master, we have no cursor intersection... fixed!
 //        
-        window.addEventListener('touchstart'/*'click'*/, function() {
-//          
-/////////////////////////////////////////////////////////////////////////////////////////
+//         window.addEventListener('touchstart'/*'click'*/, function() {
+// //          
+// /////////////////////////////////////////////////////////////////////////////////////////
 
-          // If the cursor has an intersection, place a marker.
-          var cursor = sc.querySelector('[ar-raycaster]').components.cursor;
-          if (cursor.intersection) {
-            var marker = document.createElement('a-box');
-            marker.setAttribute('width', 0.01);
-            marker.setAttribute('depth', 0.01);
-            marker.setAttribute('height', 1);
-            marker.setAttribute('color', 'orange');
-            marker.setAttribute('position', {
-              x: cursor.intersection.point.x, 
-              y: cursor.intersection.point.y + 0.5, 
-              z: cursor.intersection.point.z});
-            sc.appendChild(marker);         
-          }
+//           // If the cursor has an intersection, place a marker.
+//           var cursor = sc.querySelector('[ar-raycaster]').components.cursor;
+//           if (cursor.intersection) {
+//             var marker = document.createElement('a-box');
+//             marker.setAttribute('width', 0.01);
+//             marker.setAttribute('depth', 0.01);
+//             marker.setAttribute('height', 1);
+//             marker.setAttribute('color', 'orange');
+//             marker.setAttribute('position', {
+//               x: cursor.intersection.point.x, 
+//               y: cursor.intersection.point.y + 0.5, 
+//               z: cursor.intersection.point.z});
+//             sc.appendChild(marker);         
+//           }
           
-          // Show plane info on click.
-          // (may not have arDisplay until tick after loaded)
-          var ardisplay = sc.components['three-ar'].arDisplay;
-          if (!ardisplay) { showHUD('no ardisplay?'); } else {
-            // Old versions of WebARonARKit don't expose getPlanes() correctly.
-            var planes = ardisplay.getPlanes ? ardisplay.getPlanes() : ardisplay.anchors_;
+//           // Show plane info on click.
+//           // (may not have arDisplay until tick after loaded)
+//           var ardisplay = sc.components['three-ar'].arDisplay;
+//           if (!ardisplay) { showHUD('no ardisplay?'); } else {
+//             // Old versions of WebARonARKit don't expose getPlanes() correctly.
+//             var planes = ardisplay.getPlanes ? ardisplay.getPlanes() : ardisplay.anchors_;
 
-            var keys = Object.keys(sc.components['ar-planes'].planes);
-            var msg = planes.length + ' (vs. ' + keys.length + ': ' + keys.join(',') + ')\n\n';
-/*           
-            planes.forEach(function (plane) {
-              // Decompose into pos / quat / scale, and make euler.
-              tempMat4.fromArray(plane.modelMatrix);
-              tempMat4.decompose(tempPos, tempQuat, tempScale);
-              tempEuler.setFromQuaternion(tempQuat);
+//             var keys = Object.keys(sc.components['ar-planes'].planes);
+//             var msg = planes.length + ' (vs. ' + keys.length + ': ' + keys.join(',') + ')\n\n';
+// /*           
+//             planes.forEach(function (plane) {
+//               // Decompose into pos / quat / scale, and make euler.
+//               tempMat4.fromArray(plane.modelMatrix);
+//               tempMat4.decompose(tempPos, tempQuat, tempScale);
+//               tempEuler.setFromQuaternion(tempQuat);
 
-              // Write out what we got, for debugging.
-              msg += 
-              'identifier: ' + plane.identifier + '' + // string, per latest spec
-              ' ' + JSON.stringify(tempPos) + ''
-              ' ' + JSON.stringify(tempEuler.toVector3().multiplyScalar(THREE.Math.RAD2DEG)) + '' + 
-              ' ' + plane.extent + '\n' + // number[2], per latest spec
-              (plane.vertices ? ('vertices: ' + plane.vertices.length + '\n') : '') + // number[3*n], per latest spec
-              '';
-            });
-*/            
-            showHUD(msg);
-          }
-        });
+//               // Write out what we got, for debugging.
+//               msg += 
+//               'identifier: ' + plane.identifier + '' + // string, per latest spec
+//               ' ' + JSON.stringify(tempPos) + ''
+//               ' ' + JSON.stringify(tempEuler.toVector3().multiplyScalar(THREE.Math.RAD2DEG)) + '' + 
+//               ' ' + plane.extent + '\n' + // number[2], per latest spec
+//               (plane.vertices ? ('vertices: ' + plane.vertices.length + '\n') : '') + // number[3*n], per latest spec
+//               '';
+//             });
+// */            
+//             showHUD(msg);
+//           }
+//         });
         
         addEventListeners();
       }
@@ -241,6 +208,6 @@
       if (sc.hasLoaded) { onSceneLoaded(); }
       else { sc.addEventListener('loaded', onSceneLoaded); }
     </script>
-</body>
+ </body>
 
 </html>

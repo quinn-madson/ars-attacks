@@ -20,6 +20,51 @@
 </head>
 
 <body>
+  <!-- Anchor / Column. -->
+  <script>
+    AFRAME.registerComponent('thing', {
+      init: function () {
+        this.el.setAttribute('geometry', {primitive:'box', width:0.01, depth:0.01, height:1});
+        this.el.setAttribute('position', {y:0.5});
+      }
+    });            
+  </script>
+  <script>
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // NOTE: for A-Frame 0.8.x, we need to listen for cursor intersection changes separately
+    //        
+      AFRAME.registerComponent('track-cursor-intersection', {
+        init: function () {
+          this.point = new THREE.Vector3();
+        },
+        
+        tick: function (t, dt) {
+          // NOTE: not throttled to raycaster checkIntersections interval!
+          var cursor = this.el.components.cursor;
+          var raycaster = this.el.components.raycaster;
+          var newIntersection;
+          // NOTE: A-Frame 0.7.1 (which doesn't need this) does not have raycaster.intersections
+          if (cursor && raycaster && raycaster.intersections) {
+            newIntersection = raycaster.intersections.length ? raycaster.intersections[0] : undefined;
+            // NOTE: the intersections are always different (!) so check object
+            if ((cursor.intersection && cursor.intersection.object) !== (newIntersection && newIntersection.object)) {
+              // new cursor intersection object
+              cursor.intersection = newIntersection;              
+              this.el.emit('cursor-intersection-changed', cursor.intersection, false);
+            } else
+            if (newIntersection && !newIntersection.point.equals(cursor.intersection.point)) {
+              // new cursor intersection point
+              cursor.intersection.point.copy(newIntersection.point);
+              this.el.emit('cursor-intersection-changed', newIntersection, false);
+            } else {
+              // same or no cursor intersection point
+            }
+          }
+        }
+      });            
+    //
+    /////////////////////////////////////////////////////////////////////////////////////////
+  </script> 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
   <script src="/easyrtc/easyrtc.js"></script>
   <a-scene networked-scene="
@@ -38,6 +83,7 @@
     </a-assets>
 
     <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;"
+      scale="1 1 1"
       camera spawn-in-circle="radius:10"
       position="0 1.6 0"
       wasd-controls look-controls

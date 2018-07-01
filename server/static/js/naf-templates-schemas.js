@@ -20,11 +20,6 @@ function doImports () {
     components: [
       'position',
       'rotation',
-      {
-        selector: '.head',
-        component: 'material',
-        property: 'color'
-      }
     ]
   });
   NAF.schemas.add({

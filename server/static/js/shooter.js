@@ -37,6 +37,12 @@ window.AFRAME.registerComponent('shooter', {
       if (!this.data.active) {
         return
       }
+      var countdownSound = document.createElement('audio')
+      var countdownSource = document.createElement('source')
+      countdownSource.setAttribute('src', '/sounds/blaster1.wav')
+      countdownSource.setAttribute('type', 'audio/wav')
+      countdownSound.appendChild(countdownSource)
+      countdownSound.play()
       const proj = document.createElement('a-entity')
       const rotation = this.el.getAttribute('rotation')
       direction.copy(this.data.direction)

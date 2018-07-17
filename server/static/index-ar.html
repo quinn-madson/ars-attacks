@@ -7,7 +7,7 @@
   <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
   <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
-  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.2.0/dist/aframe-physics-system.min.js"></script>
   <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
   <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
   <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
@@ -24,7 +24,7 @@
   <script src="/js/polygon.js"></script>
         
   <style>
-    <!-- Prevent touch causing flicker on iOS. -->
+    /* Prevent touch causing flicker on iOS. */
     * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
     
     #arInstructions {
@@ -151,7 +151,7 @@
     physics="gravity: 0">
   
     <a-assets>
-      <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05"></a-mixin>
+      <a-mixin id="projectile-mixin" geometry="primitive: sphere; radius: 0.05" scale="0.5 0.5 10"></a-mixin>
       <a-asset-item id="alien" src="/assets/ackack-alien-crazy-eyes/scene.gltf"></a-asset-item>
       <a-asset-item id="ufo" src="/assets/low-poly-ufo/scene.gltf"></a-asset-item>
       <a-asset-item id="base" src="/assets/base/scene.gltf"></a-asset-item>
@@ -171,7 +171,9 @@
         scale="1 1 1" position="0 0 0" rotation="0 0 0"
         target shooter="team: alien; enableTouch:false; enableMouse:false;"
         bind="shooter.active: gunsEnabled"
-        static-body="shape: sphere; sphereRadius: 1.5" physics-collider="ignoreSleep: true"
+        static-body="shape: none" physics-collider="ignoreSleep: true"
+        shape__head="shape: sphere; radius: 0.6; offset: 0 0.4 0"
+        shape__saucer="shape: cylinder; radiusTop: 0.86; radiusBottom: 0.86; height: 0.42; offset: 0 -0.46 0"
         collision-filter="group: you; collidesWith: projectiles, alienBullets, humanBullets; collisionForces: false">
         
         <a-entity visible="false" gltf-model="#alien" position="0 -0.7 0" scale="0.125 0.125 0.125" rotation="0 180 0" animation-mixer></a-entity>

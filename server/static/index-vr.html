@@ -6,7 +6,7 @@
   <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
   <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
-  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.2.0/dist/aframe-physics-system.min.js"></script>
   <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
   <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
   <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
@@ -114,11 +114,13 @@
         lobby
         death bind__death="active: dead"
         bind__hud="currentLife: life"
-        static-body="shape: sphere; sphereRadius: 0.33" physics-collider="ignoreSleep: true"
+        static-body="shape: none;" shape="shape: cylinder; radiusTop: 0.17; radiuBottom: 0.17; height: 0.55; offset: 0 -0.5 0"
+        physics-collider="ignoreSleep: true"
         collision-filter="group: you; collidesWith: projectiles, alienBullets, humanBullets; collisionForces: false">
         <a-entity gltf-model="#head" visible="false" scale="0.1 0.1 0.1" position="0 -1 0"></a-entity>
       </a-entity>
-      <a-entity class="right-controller" shooter="team: human; enableMouse: false; enableTouch: false"
+      <a-entity class="right-controller"
+        shooter="team: human; enableMouse: false; enableTouch: false; direction: 0 -0.97 -0.243"
         bind="shooter.active: gunsEnabled"
         position rotation
         networked="template:#right-hand-template; attachTemplateToLocal: true"
@@ -133,7 +135,7 @@
         position rotation
         networked="template:#left-hand-template;attachTemplateToLocal: true"
         oculus-touch-controls="hand: left; model: false"
-        vive-controls="hand: left; mode: false"
+        vive-controls="hand: left; model: false"
         windows-motion-controls="hand: left; model: false">
       </a-entity>
     </a-entity>

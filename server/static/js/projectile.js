@@ -3,7 +3,6 @@ window.AFRAME.registerComponent('projectile', {
     dir: { type: 'vec3' },
     power: { default: 50 }
   },
-  dependencies: ['dynamic-body'],
   init: function () {
     this.tick = window.AFRAME.utils.throttleTick(this.tick, 1000, this)
     const lookTarget = new window.THREE.Vector3()
@@ -19,11 +18,13 @@ window.AFRAME.registerComponent('projectile', {
         { once: true }
       )
     }
+    this.el.setAttribute('dynamic-body', {shape: 'none'})
+    this.el.setAttribute('shape', 'shape: box; halfExtents: 0.05 0.05 0.05')
     this.duration = 0
   },
   tick: function (t, dt) {
     this.duration += dt
-    if (this.el.object3D.position.lengthSq() > 625 ||
+    if (this.el.object3D.position.lengthSq() > 25000 ||
         this.duration > 10000) {
       this.el.parentEl.removeChild(this.el)
     }
@@ -35,6 +36,7 @@ window.AFRAME.registerComponent('projectile', {
       source.set(0, 0, 0)
       dir.copy(this.data.dir)
       this.el.body.pointToLocalFrame(dir, dir)
+      dir.normalize()
       dir.scale(this.data.power, dir)
       this.el.body.applyLocalImpulse(dir, source)
     }

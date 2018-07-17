@@ -8,14 +8,16 @@
   <a-entity class="projectile" mixin="projectile-mixin"
             material="color: green;"
             collision-filter="group: alienBullets; collidesWith: you, default"
-            static-body>
+            static-body="shape: none"
+            shape="box; halfExtents: 0.05 0.05 0.05">
   </a-entity>
 </template>
 <template id="alien-projectile-template">
   <a-entity class="projectile" mixin="projectile-mixin"
             collision-filter="group: humanBullets; collidesWith: you, default"
-             material="color: red;"
-            static-body>
+            material="color: red;"
+            static-body="shape: none"
+            shape="box; halfExtents: 0.05 0.05 0.05">
   </a-entity>
 </template>
 <template id="ar-template">
@@ -28,17 +30,22 @@
 </template>
 <template id="right-hand-template">
   <a-entity>
-    <!-- <a-entity geometry="primitive:box; width: 0.1; height: 0.1; depth: 0.2"
-            material="color: white"></a-entity> -->
-    <a-entity gltf-model="#right-hand-blaster" scale="0.15 0.15 0.15" rotation="0 180 0"></a-entity>
+    <a-entity gltf-model="#right-hand-blaster"
+              position="-0.042 0.223 0.148"
+              scale="0.11 0.11 0.11"
+              rotation="74.4 -179.3 -6.44"></a-entity>
   </a-entity>
 </template>
 <template id="left-hand-template">
   <a-entity>
-    <!-- <a-entity static-body geometry="primitive:box; width: 0.5; height: 0.1; depth: 0.5"
-              material="color: grey" 
-              collision-filter="collidesWith: projectiles">-->
-      <a-entity gltf-model="#left-hand-shield" rotation="0 180 0" scale="0.2 0.2 0.2" collision-filter="collidesWith: projectiles"></a-entity>
+      <a-entity gltf-model="#left-hand-shield"
+                position="0.07 0.004 0.115"
+                rotation="79.5 -72.2 81.5"
+                scale="0.11 0.11 0.11"
+                static-body="shape: none"
+                shape="shape: cylinder; radiusTop: 1.85; radiusBottom: 1.85; height: 2; offset: 0.194 1.257 -0.131; orientation: 0.245 -0.278 -0.647 0.665"
+                collision-filter="collidesWith: alienBullets, humanBullets">
+              </a-entity>
     </a-entity>
   </a-entity>
 </template>

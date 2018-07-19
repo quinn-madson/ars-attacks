@@ -24,6 +24,7 @@
   <script src="/js/lobby.component.js"></script>
   <script src="/js/death.js"></script>
   <script src="/js/animation-mixer.js"></script>
+  <script src="/js/add-shape-later.js"></script>
   <link rel="import" href="templates.html">
 </head>
 
@@ -114,7 +115,8 @@
         lobby
         death bind__death="active: dead"
         bind__hud="currentLife: life"
-        static-body="shape: none;" shape="shape: cylinder; radiusTop: 0.17; radiuBottom: 0.17; height: 0.55; offset: 0 -0.5 0"
+        static-body="shape: none;"
+        add-shape-later="shape: cylinder; radiusTop: 0.17; radiusBottom: 0.17; height: 0.55; offset: 0 -0.5 0"
         physics-collider="ignoreSleep: true"
         collision-filter="group: you; collidesWith: projectiles, alienBullets, humanBullets; collisionForces: false">
         <a-entity gltf-model="#head" visible="false" scale="0.1 0.1 0.1" position="0 -1 0"></a-entity>

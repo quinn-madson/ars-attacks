@@ -98,6 +98,8 @@
   <script src="/js/hud.component.js"></script>
   <script src="/js/lobby.component.js"></script>
   <script src="/js/death.js"></script>
+  <script src="/js/add-shape-later.js"></script>
+
 
   <link rel="import" href="templates.html">
 </head>
@@ -171,9 +173,9 @@
         scale="1 1 1" position="0 0 0" rotation="0 0 0"
         target shooter="team: alien; enableTouch:false; enableMouse:false;"
         bind="shooter.active: gunsEnabled"
-        static-body="shape: none" physics-collider="ignoreSleep: true"
-        shape__head="shape: sphere; radius: 0.6; offset: 0 0.4 0"
-        shape__saucer="shape: cylinder; radiusTop: 0.86; radiusBottom: 0.86; height: 0.42; offset: 0 -0.46 0"
+        static-body="shape: none;" physics-collider="ignoreSleep: true"
+        add-shape-later__head="shape: sphere; radius: 3; offset: 0 0.4 0"
+        add-shape-later__saucer="shape: cylinder; radiusTop: 4.3; radiusBottom: 4.3; height: 2.1; offset: 0 -0.46 0"
         collision-filter="group: you; collidesWith: projectiles, alienBullets, humanBullets; collisionForces: false">
         
         <a-entity visible="false" gltf-model="#alien" position="0 -0.7 0" scale="0.125 0.125 0.125" rotation="0 180 0" animation-mixer></a-entity>

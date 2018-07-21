@@ -20,6 +20,14 @@ window.AFRAME.registerComponent('shooter', {
     if (this.data.otherFireEvent.length) {
       document.addEventListener(this.data.otherFireEvent, this.shoot)
     }
+    var that = this
+    window.onkeyup = function (e) {
+      var key = e.keyCode ? e.keyCode : e.which
+      if (key === 32) {
+        that.shoot()
+      }
+    }
+    
     // this.el.addEventListener('controllerconnected', evt => {
     //   if (evt.detail.name === 'oculus-touch-controls') {
     //     this.el.setAttribute('shooter', { direction: { x: 0, y: -0.8, z: -1 } })
@@ -51,6 +59,7 @@ window.AFRAME.registerComponent('shooter', {
       ray.set(position, direction)
       proj.setAttribute('position', ray.at(0.7))
       proj.setAttribute('rotation', rotation)
+      proj.setAttribute('instancing', 'count:40000;')
       proj.setAttribute('networked', {
         template: `#${this.data.team}-projectile-template`,
         attachTemplateToLocal: false
